@@ -131,14 +131,14 @@ section{padding:7rem clamp(1.5rem,6vw,6rem);position:relative;z-index:1}
 /* ───── WHAT I DO ───── */
 #whatido{background:var(--bg)}
 .wid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)}
-.wid-card{background:var(--bg1);padding:3.5rem 2.5rem;transition:all .3s;position:relative;overflow:hidden;cursor:default}
+.wid-card{background:var(--bg1);padding:2.2rem 2rem;transition:all .3s;position:relative;overflow:hidden;cursor:default}
 .wid-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .4s;transform-origin:left}
 .wid-card:hover{background:var(--bg2);transform:translateY(-4px)}
 .wid-card:hover::after{transform:scaleX(1)}
-.wid-num{font-family:var(--display);font-size:9rem;color:var(--red);opacity:.18;line-height:1;letter-spacing:.02em;margin-bottom:1.5rem;transition:all .3s}
+.wid-num{font-family:var(--display);font-size:6rem;color:var(--red);opacity:.18;line-height:1;letter-spacing:.02em;margin-bottom:.8rem;transition:all .3s}
 .wid-card:hover .wid-num{opacity:.55;transform:scale(1.08)}
-.wid-card h3{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:.8rem;letter-spacing:-.02em}
-.wid-card p{font-size:.93rem;color:var(--text2);line-height:1.95;font-weight:300}
+.wid-card h3{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:.5rem;letter-spacing:-.02em}
+.wid-card p{font-size:.88rem;color:var(--text2);line-height:1.8;font-weight:300}
 .feat-tag{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
 
 /* ───── PROJECTS ───── */
@@ -187,48 +187,142 @@ section{padding:7rem clamp(1.5rem,6vw,6rem);position:relative;z-index:1}
 .edu-num-bg{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:8rem;color:rgba(255,255,255,.018);letter-spacing:.04em;line-height:1;pointer-events:none;transition:color .4s,transform .5s}
 .edu-item:hover .edu-num-bg{color:rgba(255,35,70,.06);transform:translateY(-50%) scale(1.05)}
 
-/* ───── ACCOMPLISHMENTS ZIGZAG TIMELINE ───── */
+/* ───── ACCOMPLISHMENTS TIMELINE ───── */
 #accomplishments{background:var(--bg1)}
-.acc-timeline{position:relative;margin-top:3rem;padding-bottom:1rem}
-/* center vertical line */
-.acc-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--red) 4%,var(--red) 96%,transparent);transform:translateX(-50%);z-index:0;opacity:.5}
+.acc-timeline{
+  position:relative;
+  margin-top:3rem;
+  padding-bottom:1rem;
+}
 
-.acc-row{position:relative;width:calc(50% - 1.5rem);padding:2rem 2.2rem;margin-bottom:2.5rem;background:var(--bg2);border:1px solid var(--line);transition:border-color .3s,background .3s}
-.acc-row:hover{background:var(--bg3);border-color:rgba(255,35,70,.3)}
-/* dot on center line */
-.acc-row::before{content:'';position:absolute;top:2rem;width:14px;height:14px;border-radius:50%;border:2px solid var(--red);background:var(--bg1);z-index:2;transition:all .3s}
-/* red top bar on hover */
-.acc-row::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .4s;transform-origin:left}
-.acc-row:hover::after{transform:scaleX(1)}
-.acc-row:hover::before{background:var(--red);box-shadow:0 0 14px rgba(255,35,70,.7)}
+/* center spine */
+.acc-spine{
+  position:absolute;
+  left:50%;top:0;bottom:0;
+  width:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(to bottom,transparent,var(--red) 4%,var(--red) 96%,transparent);
+  opacity:.35;
+  z-index:0;
+  pointer-events:none;
+}
 
-/* LEFT rows */
-.acc-row.left{margin-left:0;margin-right:auto;
-  opacity:0;transform:translateX(-70px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1),border-color .3s,background .3s}
-.acc-row.left::before{right:-2.2rem;left:auto}
-
-/* RIGHT rows */
-.acc-row.right{margin-left:auto;margin-right:0;
-  opacity:0;transform:translateX(70px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1),border-color .3s,background .3s}
-.acc-row.right::before{left:-2.2rem}
-
-/* animate in */
+/* wrapper for each row — full width, flex */
+.acc-row{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  margin-bottom:2.2rem;
+  opacity:0;
+  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+}
+.acc-row.left{
+  flex-direction:row; /* card | gap | dot+year | center */
+  justify-content:flex-start;
+  transform:translateX(-50px);
+}
+.acc-row.right{
+  flex-direction:row-reverse; /* center | dot+year | gap | card */
+  justify-content:flex-start;
+  transform:translateX(50px);
+}
 .acc-row.acc-in{opacity:1;transform:translateX(0)}
 
-.acc-yr{font-family:var(--display);font-size:3rem;color:rgba(255,35,70,.15);line-height:1;letter-spacing:.04em;margin-bottom:.5rem;transition:color .3s}
-.acc-row:hover .acc-yr{color:rgba(255,35,70,.4)}
-.acc-content-title{font-size:.78rem;font-weight:800;color:var(--text);margin-bottom:.2rem;line-height:1.35;letter-spacing:-.02em;transition:color .3s}
-.acc-row:hover .acc-content-title{color:var(--red)}
-.acc-content-org{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:.7rem;opacity:.8}
-.acc-content-desc{font-size:.94rem;color:var(--text2);line-height:1.95;font-weight:300}
+/* the card itself */
+.acc-card{
+  width:calc(50% - 0.6rem);
+  padding:1.4rem 1.6rem;
+  background:var(--bg2);
+  border:1px solid var(--line);
+  position:relative;
+  transition:background .35s,border-color .35s,transform .35s,box-shadow .35s;
+  flex-shrink:0;
+}
+.acc-row.left  .acc-card{border-right:2px solid transparent}
+.acc-row.right .acc-card{border-left:2px solid transparent}
+.acc-card:hover{background:var(--bg3);border-color:rgba(255,35,70,.25)}
+.acc-row.left  .acc-card:hover{border-right-color:var(--red);transform:translateX(-3px);box-shadow:0 8px 32px rgba(0,0,0,.4),3px 0 16px rgba(255,35,70,.07)}
+.acc-row.right .acc-card:hover{border-left-color:var(--red);transform:translateX(3px);box-shadow:0 8px 32px rgba(0,0,0,.4),-3px 0 16px rgba(255,35,70,.07)}
 
-/* mobile — single column */
+/* connector area: just the dot, centered on the spine */
+.acc-connector{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  flex-shrink:0;
+  padding-top:1.55rem;
+  width:1.2rem;
+}
+.acc-row.left .acc-connector{ flex-direction:row; }
+.acc-row.right .acc-connector{ flex-direction:row; }
+
+.acc-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  border:2px solid var(--red);
+  background:var(--bg1);
+  flex-shrink:0;
+  position:relative;
+  z-index:3;
+  transition:background .3s,box-shadow .3s,transform .3s;
+}
+.acc-card:hover ~ .acc-connector .acc-dot,
+.acc-connector:hover .acc-dot{
+  background:var(--red);
+  box-shadow:0 0 12px rgba(255,35,70,.8);
+  transform:scale(1.3);
+}
+
+.acc-year{display:none}
+
+/* card content */
+.acc-yr{display:none}
+.acc-content-title{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:.2rem;line-height:1.4;letter-spacing:-.01em;transition:color .3s}
+.acc-card:hover .acc-content-title{color:var(--red)}
+.acc-content-org{font-size:.53rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;opacity:.75}
+.acc-content-desc{font-size:.86rem;color:var(--text2);line-height:1.85;font-weight:300}
+
+/* ══ PHONE ≤700px: left spine, cards full width ══ */
 @media(max-width:700px){
-  .acc-timeline::before{left:16px}
-  .acc-row{width:100%;margin-left:0;padding-left:2.8rem}
-  .acc-row.left,.acc-row.right{transform:translateX(-40px)}
-  .acc-row.left::before,.acc-row.right::before{left:-1.6rem;right:auto}
+  .acc-spine{left:1.2rem;transform:none}
+
+  .acc-row.left,
+  .acc-row.right{
+    flex-direction:row;
+    justify-content:flex-start;
+    transform:translateX(36px);
+    margin-bottom:1.1rem;
+  }
   .acc-row.acc-in{transform:translateX(0)}
+
+  .acc-connector{
+    flex-direction:row;
+    justify-content:center;
+    padding-top:1.2rem;
+    width:1.2rem;
+    flex-shrink:0;
+    order:-1;
+  }
+
+  .acc-row.left  .acc-connector,
+  .acc-row.right .acc-connector{
+    flex-direction:row;
+    justify-content:center;
+  }
+
+  .acc-dot{width:8px;height:8px}
+
+  .acc-card{
+    width:auto;
+    flex:1;
+    padding:1rem 1rem;
+    border-left:2px solid transparent!important;
+    border-right:1px solid var(--line)!important;
+  }
+  .acc-card:hover{transform:translateX(2px)!important;border-left-color:var(--red)!important;box-shadow:0 4px 20px rgba(0,0,0,.3),-2px 0 12px rgba(255,35,70,.06)!important}
+
+  .acc-content-title{font-size:.82rem}
+  .acc-content-desc{font-size:.8rem;line-height:1.7}
 }
 
 /* ───── SPORTS ───── */
@@ -250,14 +344,34 @@ section{padding:7rem clamp(1.5rem,6vw,6rem);position:relative;z-index:1}
 /* ───── PHILOSOPHY ───── */
 #philosophy{background:var(--bg1)}
 .q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
-.q-card{background:var(--bg);padding:2.8rem 2rem;position:relative;overflow:hidden;transition:all .3s;cursor:default}
+.q-card{background:var(--bg);padding:2.2rem 1.8rem 1.8rem;position:relative;overflow:hidden;transition:all .3s;cursor:default;display:flex;flex-direction:column;gap:.9rem}
 .q-card:hover{background:var(--red);transform:translateY(-5px)}
-.q-card:hover .q-cat{color:rgba(255,255,255,.7)}
 .q-card:hover blockquote{color:#fff}
-.q-card:hover .q-mark{color:rgba(255,255,255,.1)}
-.q-mark{font-size:9rem;font-weight:900;font-family:Georgia,serif;color:rgba(255,35,70,.05);position:absolute;top:-2.5rem;right:.5rem;line-height:1;pointer-events:none;transition:color .3s}
-.q-cat{font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;position:relative;z-index:1;transition:color .3s}
-.q-card blockquote{font-size:1.03rem;color:var(--text2);line-height:2;font-weight:300;font-style:italic;position:relative;z-index:1;transition:color .3s}
+.q-card:hover .q-open,.q-card:hover .q-close{color:rgba(255,255,255,.25)}
+/* open quote top-left */
+.q-open{
+  font-family:var(--display);
+  font-size:5rem;
+  line-height:.6;
+  color:rgba(255,35,70,.3);
+  letter-spacing:-.02em;
+  transition:color .3s;
+  user-select:none;
+  align-self:flex-start;
+}
+/* close quote bottom-right */
+.q-close{
+  font-family:var(--display);
+  font-size:5rem;
+  line-height:.6;
+  color:rgba(255,35,70,.3);
+  letter-spacing:-.02em;
+  transition:color .3s;
+  user-select:none;
+  align-self:flex-end;
+  margin-top:auto;
+}
+.q-card blockquote{font-size:.97rem;color:var(--text2);line-height:1.9;font-weight:400;font-style:normal;position:relative;z-index:1;transition:color .3s;letter-spacing:.005em}
 
 /* ───── IDOLS ───── */
 #idols{background:var(--bg)}
@@ -374,8 +488,8 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding:2.2rem clam
 
   /* ── what i do ── */
   .wid-grid{grid-template-columns:1fr}
-  .wid-card{padding:2.2rem 1.4rem}
-  .wid-num{font-size:5.5rem;margin-bottom:.8rem}
+  .wid-card{padding:1.6rem 1.2rem}
+  .wid-num{font-size:4rem;margin-bottom:.5rem}
 
   /* ── education ── */
   .edu-item{grid-template-columns:1fr;border-bottom:1px solid var(--line)}
@@ -386,15 +500,9 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding:2.2rem clam
   .edu-body h3{font-size:1.05rem}
   .edu-num-bg{display:none}
 
-  /* ── accomplishments ── */
-  .acc-timeline::before{left:12px;opacity:.35}
-  .acc-row{width:100%!important;margin-left:0!important;margin-right:0!important;padding:1.4rem 1.2rem 1.4rem 2.2rem;margin-bottom:1.2rem}
-  .acc-row.left,.acc-row.right{transform:translateX(-30px)}
-  .acc-row.left::before,.acc-row.right::before{left:-1.55rem;right:auto;top:1.5rem;width:11px;height:11px}
-  .acc-row.acc-in{transform:translateX(0)}
-  .acc-yr{font-size:2rem;margin-bottom:.3rem}
+  /* ── accomplishments — handled by 700px block in acc section ── */
   .acc-content-title{font-size:.8rem}
-  .acc-content-desc{font-size:.88rem}
+  .acc-content-desc{font-size:.84rem}
 
   /* ── projects ── */
   .proj-cards{grid-template-columns:1fr;gap:1.2rem}
@@ -433,12 +541,57 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding:2.2rem clam
   .f-copy{font-size:.52rem}
 }
 
-/* ───── CURSOR FOLLOWER ───── */
-#cur-outer{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid var(--red);border-radius:50%;pointer-events:none;z-index:9990;transform:translate(-50%,-50%);transition:transform .12s ease,width .25s ease,height .25s ease,border-color .25s ease,opacity .4s ease;opacity:0}
-#cur-inner{position:fixed;top:0;left:0;width:6px;height:6px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9991;transform:translate(-50%,-50%);transition:transform .04s ease,width .2s ease,height .2s ease,opacity .4s ease;opacity:0}
-body.cur-hover #cur-outer{width:56px;height:56px;border-color:var(--red2);background:var(--red-dim)}
-body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode:difference}
-@media(hover:none){#cur-outer,#cur-inner{display:none}}
+/* ───── CURSOR — TECH CROSSHAIR ───── */
+#cur-outer{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9990;
+  transform:translate(-50%,-50%);opacity:0;
+  transition:opacity .4s ease;
+  width:28px;height:28px;
+}
+/* four corner brackets */
+#cur-outer::before,#cur-outer::after{
+  content:'';position:absolute;
+  width:8px;height:8px;
+  border-color:var(--red);border-style:solid;
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+}
+#cur-outer::before{top:0;left:0;border-width:1.5px 0 0 1.5px}
+#cur-outer::after{bottom:0;right:0;border-width:0 1.5px 1.5px 0}
+/* two more corners via a span we'll fake with box-shadow on inner */
+#cur-inner{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9991;
+  transform:translate(-50%,-50%);opacity:0;
+  transition:opacity .4s ease,width .2s,height .2s;
+  width:28px;height:28px;
+}
+#cur-inner::before,#cur-inner::after{
+  content:'';position:absolute;
+  width:8px;height:8px;
+  border-color:var(--red);border-style:solid;
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+}
+#cur-inner::before{top:0;right:0;border-width:1.5px 1.5px 0 0}
+#cur-inner::after{bottom:0;left:0;border-width:0 0 1.5px 1.5px}
+/* center dot */
+#cur-dot{
+  position:fixed;top:0;left:0;
+  width:3px;height:3px;
+  background:var(--red);
+  border-radius:50%;
+  pointer-events:none;z-index:9992;
+  transform:translate(-50%,-50%);
+  opacity:0;transition:opacity .4s,transform .08s;
+  box-shadow:0 0 6px rgba(255,35,70,.8);
+}
+body.cur-hover #cur-outer::before,body.cur-hover #cur-outer::after,
+body.cur-hover #cur-inner::before,body.cur-hover #cur-inner::after{
+  width:11px;height:11px;border-color:var(--red2)
+}
+body.cur-link #cur-outer::before,body.cur-link #cur-outer::after,
+body.cur-link #cur-inner::before,body.cur-link #cur-inner::after{
+  width:13px;height:13px;border-color:#fff
+}
+@media(hover:none){#cur-outer,#cur-inner,#cur-dot{display:none}}
 
 /* ───── BURGER OPEN STATE ───── */
 .burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
@@ -463,11 +616,10 @@ body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode
   .edu-item:active .edu-body h3{color:var(--red)}
 
   /* accomplishments */
-  .acc-row:active{background:var(--bg3);border-color:rgba(255,35,70,.35)}
-  .acc-row:active::after{transform:scaleX(1)}
-  .acc-row:active::before{background:var(--red);box-shadow:0 0 12px rgba(255,35,70,.6)}
+  .acc-row:active{background:var(--bg3);border-color:rgba(255,35,70,.4);border-left-color:var(--red);transform:translateX(3px)}
+  .acc-row:active::after{background:var(--red);box-shadow:0 0 12px rgba(255,35,70,.6);transform:scale(1.3)}
   .acc-row:active .acc-content-title{color:var(--red)}
-  .acc-row:active .acc-yr{color:rgba(255,35,70,.5)}
+  .acc-row:active::before{opacity:1}
 
   /* sports */
   .sport-card:active{background:var(--bg2)}
@@ -476,8 +628,7 @@ body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode
   /* philosophy — full red bg on tap */
   .q-card:active{background:var(--red);transform:translateY(-4px)}
   .q-card:active blockquote{color:#fff}
-  .q-card:active .q-mark{color:rgba(255,255,255,.1)}
-  .q-card:active .q-cat{color:rgba(255,255,255,.7)}
+  .q-card:active .q-open,.q-card:active .q-close{color:rgba(255,255,255,.25)}
 
   /* idols — full red bg on tap */
   .idol:active{background:var(--red)}
@@ -505,6 +656,7 @@ body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode
 <body>
 <div id="cur-outer"></div>
 <div id="cur-inner"></div>
+<div id="cur-dot"></div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -670,47 +822,72 @@ body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode
       <h2 class="s-title">Key <span class="red">Accomplishments</span></h2>
     </div>
     <div class="acc-timeline">
+      <div class="acc-spine"></div>
 
       <div class="acc-row left">
-        <div class="acc-yr">2021</div>
-        <div class="acc-content-title">Founder & President — NQLC (National Quiz & Learning Club)</div>
-        <div class="acc-content-org">NQLC · Dhaka, Bangladesh</div>
-        <div class="acc-content-desc">Conceptualized and launched an independent educational platform during secondary school to transform traditional learning into engaging, interactive spaces through quizzes and academic challenges. Built the platform's vision from scratch — directing digital outreach, content creation, and community engagement.</div>
+        <div class="acc-card">
+          <div class="acc-content-title">Founder & President — NQLC (National Quiz & Learning Club)</div>
+          <div class="acc-content-org">NQLC · Dhaka, Bangladesh</div>
+          <div class="acc-content-desc">Conceptualized and launched an independent educational platform during secondary school to transform traditional learning into engaging, interactive spaces through quizzes and academic challenges. Built the platform's vision from scratch — directing digital outreach, content creation, and community engagement.</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
       <div class="acc-row right">
-        <div class="acc-yr">2023</div>
-        <div class="acc-content-title">Co-Founder & Chief Advisor — BMSC Debating Club (BDC)</div>
-        <div class="acc-content-org">BIAM Model School & College · Dhaka</div>
-        <div class="acc-content-desc">Recognized an institutional need and co-founded the first and only structured debating club at BMSC. Designed, coordinated, and personally moderated <strong style="color:var(--text)">6 comprehensive debating workshops</strong>, training members in logical reasoning, speech structuring, and critical analysis.</div>
+        <div class="acc-card">
+          <div class="acc-content-title">Co-Founder & Chief Advisor — BMSC Debating Club (BDC)</div>
+          <div class="acc-content-org">BIAM Model School & College · Dhaka</div>
+          <div class="acc-content-desc">Recognized an institutional need and co-founded the first and only structured debating club at BMSC. Designed, coordinated, and personally moderated <strong style="color:var(--text)">6 comprehensive debating workshops</strong>, training members in logical reasoning, speech structuring, and critical analysis.</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
       <div class="acc-row left">
-        <div class="acc-yr">2024</div>
-        <div class="acc-content-title">Chief Organizer — 1st BMSC National Debate Carnival</div>
-        <div class="acc-content-org">BIAM Model School & College · Dhaka</div>
-        <div class="acc-content-desc">Conceptualized, planned, and executed the largest national-level academic event in BMSC history. Gathered approximately <strong style="color:var(--text)">1,000 total participants</strong>, with <strong style="color:var(--text)">830 active competitors from 63+ schools and colleges</strong> across Bangladesh. Secured high-profile guests including the State Minister of Cultural Affairs (KM Khalid) and Bangladesh's first international cricket captain (Rokibul Hasan).</div>
+        <div class="acc-card">
+          <div class="acc-content-title">Chief Organizer — 1st BMSC National Debate Carnival</div>
+          <div class="acc-content-org">BIAM Model School & College · Dhaka</div>
+          <div class="acc-content-desc">Conceptualized, planned, and executed the largest national-level academic event in BMSC history. Gathered approximately <strong style="color:var(--text)">1,000 total participants</strong>, with <strong style="color:var(--text)">830 active competitors from 63+ schools and colleges</strong> across Bangladesh. Secured high-profile guests including the State Minister of Cultural Affairs (KM Khalid) and Bangladesh's first international cricket captain (Rokibul Hasan).</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
       <div class="acc-row right">
-        <div class="acc-yr">2018</div>
-        <div class="acc-content-title">National Press Feature — "Digital Dhaka" Project (ISTARC)</div>
-        <div class="acc-content-org">Ideal Science & Technology Aiming Research Council · Dhaka</div>
-        <div class="acc-content-desc">Designed and presented an innovative smart-city model titled <em>"Digital Dhaka"</em> at the ISTARC annual science fair. The project was formally recognized and featured in the <strong style="color:var(--text)">national daily newspaper, The Daily Financial Express</strong>. Previously engineered a fully functional Pedal Generator at the 2017 ISTARC Science Fair.</div>
+        <div class="acc-card">
+          <div class="acc-content-title">National Press Feature — "Digital Dhaka" Project (ISTARC)</div>
+          <div class="acc-content-org">Ideal Science & Technology Aiming Research Council · Dhaka</div>
+          <div class="acc-content-desc">Designed and presented an innovative smart-city model titled <em>"Digital Dhaka"</em> at the ISTARC annual science fair. The project was formally recognized and featured in the <strong style="color:var(--text)">national daily newspaper, The Daily Financial Express</strong>. Previously engineered a fully functional Pedal Generator at the 2017 ISTARC Science Fair.</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
       <div class="acc-row left">
-        <div class="acc-yr">2020</div>
-        <div class="acc-content-title">Sub Head of IT — Intelligent Minds</div>
-        <div class="acc-content-org">Intelligent Minds · Dhaka</div>
-        <div class="acc-content-desc">Appointed to manage the organization's digital architecture, technical operations, and infrastructure for a dedicated 6-month tenure. Streamlined team workflows and oversaw deployment of internal communication frameworks.</div>
+        <div class="acc-card">
+          <div class="acc-content-title">Sub Head of IT — Intelligent Minds</div>
+          <div class="acc-content-org">Intelligent Minds · Dhaka</div>
+          <div class="acc-content-desc">Appointed to manage the organization's digital architecture, technical operations, and infrastructure for a dedicated 6-month tenure. Streamlined team workflows and oversaw deployment of internal communication frameworks.</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
       <div class="acc-row right">
-        <div class="acc-yr">2019</div>
-        <div class="acc-content-title">Delegate — International Leadership Program</div>
-        <div class="acc-content-org">International Cohort · Dhaka</div>
-        <div class="acc-content-desc">Selected as a formal participant in an intensive international training cohort aimed at refining micro and macro leadership, cross-cultural communication, and team dynamics.</div>
+        <div class="acc-card">
+          <div class="acc-content-title">Delegate — International Leadership Program</div>
+          <div class="acc-content-org">International Cohort · Dhaka</div>
+          <div class="acc-content-desc">Selected as a formal participant in an intensive international training cohort aimed at refining micro and macro leadership, cross-cultural communication, and team dynamics.</div>
+        </div>
+        <div class="acc-connector">
+          <div class="acc-dot"></div>
+        </div>
       </div>
 
     </div>
@@ -781,15 +958,15 @@ body.cur-link #cur-outer{width:48px;height:48px;border-color:#fff;mix-blend-mode
       <p class="s-sub" style="margin-top:.8rem">Core convictions and personal principles I live by — unfiltered.</p>
     </div>
     <div class="q-grid" style="margin-top:3rem">
-      <div class="q-card rv d1"><div class="q-mark">"</div><blockquote>Be the best person you have ever seen.</blockquote></div>
-      <div class="q-card rv d2"><div class="q-mark">"</div><blockquote>Don't try to fit into someone else's box — create your own.</blockquote></div>
-      <div class="q-card rv d3"><div class="q-mark">"</div><blockquote>If you're absent somewhere, make sure where you're present is more valuable.</blockquote></div>
-      <div class="q-card rv d1"><div class="q-mark">"</div><blockquote>The world respects only one thing — results.</blockquote></div>
-      <div class="q-card rv d2"><div class="q-mark">"</div><blockquote>Motivation is like fuel — if you don't use it, it will burn you.</blockquote></div>
-      <div class="q-card rv d3"><div class="q-mark">"</div><blockquote>Loyalty is tested when you're at your lowest, not when you're successful.</blockquote></div>
-      <div class="q-card rv d1"><div class="q-mark">"</div><blockquote>You either quit or keep going — both hurt, so choose wisely.</blockquote></div>
-      <div class="q-card rv d2"><div class="q-mark">"</div><blockquote>If you're not willing to risk it all, don't complain when you don't make it big.</blockquote></div>
-      <div class="q-card rv d3"><div class="q-mark">"</div><blockquote>You can either make excuses or you can make money — but you can't do both.</blockquote></div>
+      <div class="q-card rv d1"><div class="q-open">"</div><blockquote>Be the best person you have ever seen.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d2"><div class="q-open">"</div><blockquote>Don't try to fit into someone else's box — create your own.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d3"><div class="q-open">"</div><blockquote>If you're absent somewhere, make sure where you're present is more valuable.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d1"><div class="q-open">"</div><blockquote>The world respects only one thing — results.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d2"><div class="q-open">"</div><blockquote>Motivation is like fuel — if you don't use it, it will burn you.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d3"><div class="q-open">"</div><blockquote>Loyalty is tested when you're at your lowest, not when you're successful.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d1"><div class="q-open">"</div><blockquote>You either quit or keep going. They both hurt. Choose wisely.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d2"><div class="q-open">"</div><blockquote>If you're not willing to risk it all, don't complain when you don't make it big.</blockquote><div class="q-close">"</div></div>
+      <div class="q-card rv d3"><div class="q-open">"</div><blockquote>You either quit or keep going. They both hurt. Choose wisely.</blockquote><div class="q-close">"</div></div>
     </div>
   </div>
 </section>
@@ -1013,25 +1190,37 @@ const accObs = new IntersectionObserver(es => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.acc-row').forEach(el => accObs.observe(el));
 
-// CURSOR FOLLOWER
+// CURSOR — TECH CROSSHAIR
 (function(){
   const outer = document.getElementById('cur-outer');
   const inner = document.getElementById('cur-inner');
-  if(!outer || !inner) return;
+  const dot   = document.getElementById('cur-dot');
+  if(!outer||!inner||!dot) return;
   if(window.matchMedia('(hover:none)').matches) return;
+
   let mx=0,my=0,ox=0,oy=0;
+
   document.addEventListener('mousemove',e=>{
     mx=e.clientX; my=e.clientY;
-    inner.style.left=mx+'px'; inner.style.top=my+'px';
+    // dot follows exactly
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+    dot.style.opacity='1';
     inner.style.opacity='1'; outer.style.opacity='1';
   },{passive:true});
-  document.addEventListener('mouseleave',()=>{outer.style.opacity='0';inner.style.opacity='0';});
+
+  document.addEventListener('mouseleave',()=>{
+    outer.style.opacity='0'; inner.style.opacity='0'; dot.style.opacity='0';
+  });
+
+  // outer brackets lag behind
   (function loop(){
-    ox+=(mx-ox)*.13; oy+=(my-oy)*.13;
+    ox+=(mx-ox)*.1; oy+=(my-oy)*.1;
     outer.style.left=ox+'px'; outer.style.top=oy+'px';
+    inner.style.left=ox+'px'; inner.style.top=oy+'px';
     requestAnimationFrame(loop);
   })();
-  const hoverSels = 'a,button,.wid-card,.proj-card,.sport-card,.q-card,.idol,.soc-row,.acc-row,.edu-item,.sbox';
+
+  const hoverSels='a,button,.wid-card,.proj-card,.sport-card,.q-card,.idol,.soc-row,.acc-row,.edu-item,.sbox';
   document.querySelectorAll(hoverSels).forEach(el=>{
     el.addEventListener('mouseenter',()=>document.body.classList.add('cur-hover'));
     el.addEventListener('mouseleave',()=>document.body.classList.remove('cur-hover','cur-link'));
